@@ -18,6 +18,8 @@
 #ifndef ROOM
 #define ROOM
 
+#include<string>
+
 class Room
 {
     std::string roomName;
