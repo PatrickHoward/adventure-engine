@@ -15,7 +15,42 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#include<string>
+#include <string>
 #include "rooms.hpp"
 
+Edge::Edge()
+{
+    enabled = false;
+}
 
+void Room::addEdge(Direction direction, Room* toRoom, bool enableEdge)
+{
+    edges[direction].destination = toRoom;
+    edges[direction].enabled = enableEdge;
+
+}
+
+void Room::delEdge(Direction direction)
+{
+    edges[direction].destination = nullptr;
+    edges[direction].enabled = false;
+
+}
+
+bool Room::hasEdge(Direction direction) const
+{
+    if(edges[direction].destination != nullptr)
+    {
+        return true;
+    }
+    return false;
+}
+
+Room* Room::getRoom(Direction direction)
+{
+    if(hasEdge(direction))
+    {
+        return edges[direction].destination;
+    }
+
+}

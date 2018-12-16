@@ -15,16 +15,9 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 */ 
 
-#include<stdio.h>
-#include<fstream>
-#include<iomanip>
+#include <iostream>
 
 int main(int argc, char *argv[])
 {
-  std::cout << "Hello, world!\n";
-  std::cout << "Adventure-engine is free software, licensed under the GNU General Public License version 3\n";
-  
-  
-   
-  return 0;
+    std::cout << "Adventure Engine is free software licensed under the GNU general public license version 3\n";
 }

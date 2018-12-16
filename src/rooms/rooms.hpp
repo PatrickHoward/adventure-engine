@@ -15,26 +15,60 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 */
 
-#ifndef ROOM
-#define ROOM
+#pragma once
+#include <string>
 
-#include<string>
+enum Direction
+{
+    NORTH,
+    NORTHEAST,
+    EAST,
+    SOUTHEAST,
+    SOUTH,
+    SOUTHWEST,
+    WEST,
+    NORTHWEST    
+};
+
+struct Edge;
 
 class Room
 {
+public:
+    Room(std::string roomName_, std::string roomDesc_)
+        :roomName(roomName_),
+        roomDesc(roomDesc_)
+    {
+
+    }
+
+    Room(std::string roomName_, std::string roomDesc_, Room* edges_[])
+        : roomName(roomName_),
+        roomDesc(roomDesc_)
+    {
+
+    }
+
+    void addEdge(Direction direction, Room* toRoom, bool enableEdge);
+
+    void delEdge(Direction direction);
+
+    bool hasEdge(Direction direction) const;
+
+    Room* getRoom(Direction direction);
+
     std::string roomName;
     std::string roomDesc;
-    
-    //Items itemsInRoom[5]; //Array of items that exist in a single room.
-    //Creatures creaturesAlive[5]; //Array of creatures alive in a single room.
 
-    //Room* exits[4]; //Array of room pointers that point to the repective rooms.
-  public:
-    
-    Room();
-    Room(int, int, std::string, std::string);
+private:
+    Edge edges[8];
 
-    
 };
 
-#endif
+struct Edge
+{
+    Edge();
+
+    bool enabled;
+    Room* destination;
+};
