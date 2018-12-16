@@ -15,20 +15,11 @@ enum Direction
     NORTHWEST    
 };
 
+struct Edge;
+
 class Room
 {
 public:
-
-    struct Edge
-    {
-        Edge()
-        {
-            enabled = false;
-        }
-
-        bool enabled;
-        Room* destination;
-    };
 
     Room(string roomName_, string roomDesc_)
         :roomName(roomName_),
@@ -68,9 +59,9 @@ public:
         return false;
     }
 
-    Edge getEdge(Direction direction)
+    Edge* getEdge(Direction direction)
     {
-        return edges[direction];
+        return &edges[direction];
     }
 
     string roomName;
@@ -79,6 +70,17 @@ public:
 private:
 
     Edge edges[8];
+};
+
+struct Edge
+{
+    Edge()
+    {
+        enabled = false;
+    }
+
+    bool enabled;
+    Room* destination;
 };
 
 struct Person
@@ -103,10 +105,10 @@ struct Person
     {
         if(currentRoom->hasEdge(direction))
         {
-            Room::Edge newLoc = currentRoom->getEdge(direction);
-            if(newLoc.enabled == true)
+            Edge* newLoc = currentRoom->getEdge(direction);
+            if(newLoc->enabled == true)
             {
-                currentRoom = newLoc.destination;   
+                currentRoom = newLoc->destination;   
             }        
 
             return;
