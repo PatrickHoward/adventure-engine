@@ -30,7 +30,15 @@ enum Direction
     NORTHWEST    
 };
 
-struct Edge;
+class Room;
+
+struct Edge
+{
+    Edge();
+
+    bool enabled;
+    Room* destination;
+};
 
 class Room
 {
@@ -55,6 +63,8 @@ public:
 
     bool hasEdge(Direction direction) const;
 
+    bool edgeEnabled(Direction movement);
+
     Room* getRoom(Direction direction);
 
     std::string roomName;
@@ -63,12 +73,4 @@ public:
 private:
     Edge edges[8];
 
-};
-
-struct Edge
-{
-    Edge();
-
-    bool enabled;
-    Room* destination;
 };

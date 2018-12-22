@@ -46,6 +46,16 @@ bool Room::hasEdge(Direction direction) const
     return false;
 }
 
+bool Room::edgeEnabled(Direction movement)
+{
+    if(edges[movement].enabled)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 Room* Room::getRoom(Direction direction)
 {
     if(hasEdge(direction))
