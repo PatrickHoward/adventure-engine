@@ -25,8 +25,10 @@ using namespace std;
 
 int main(int argc, char *argv[])
 {
-    cout << "Adventure Engine is free software licensed under the GNU general public license version 3.\n";
+    cout << "Adventure Engine is free software licensed under the GNU general public license version    3.\n";
     
+    
+    //Simply testing the functionality of the rooms and moving a "player" from room to room.
     Room room1("This is a new room", "Blerg");
     Room room2("This is another room", "Bleerg");
     Room room3("This is a third room", "Bleeerg");
@@ -46,3 +48,4 @@ int main(int argc, char *argv[])
     cout << mainPlayer.attemptTravel(NORTH) << '\n';
 
 }
+
