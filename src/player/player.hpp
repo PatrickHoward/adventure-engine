@@ -37,7 +37,7 @@ public:
             if(playerRoom->edgeEnabled(movementTowards))
             {
                 movePlayer(playerRoom->getRoom(movementTowards));
-                return playerRoom->roomName;
+                return "OK";
             }
 
             return "Its locked.";
@@ -51,6 +51,11 @@ public:
     std::string whereAmI()
     {
         return playerRoom->roomName;
+    }
+
+    std::string lookAround()
+    {
+        return playerRoom->roomDesc;
     }
 
 private:

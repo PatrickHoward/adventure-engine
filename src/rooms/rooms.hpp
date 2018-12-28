@@ -45,7 +45,8 @@ class Room
 public:
     Room(std::string roomName_, std::string roomDesc_)
         :roomName(roomName_),
-        roomDesc(roomDesc_)
+        roomDesc(roomDesc_),
+        visited(false)
     {
 
     }
@@ -69,6 +70,8 @@ public:
 
     std::string roomName;
     std::string roomDesc;
+
+    bool visited;
 
 private:
     Edge edges[8];
