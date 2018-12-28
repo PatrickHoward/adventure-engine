@@ -21,6 +21,7 @@
 #include <string>
 #include <sstream>
 #include <set>
+#include <vector>
 
 
 struct Command
@@ -49,7 +50,9 @@ public:
     
     bool isLegal(std::string commandWord)
     {
-        if(legalCommands.find(commandWord))
+        auto commandFound = legalCommands.find(commandWord);
+
+        if(commandFound != legalCommands.end())
         {
             return true;
         }
@@ -70,11 +73,11 @@ public:
         
     }
     
-    void getInput(std::string userInput)
+    void parseInput(std::string userInput)
     {
         inputLine.str(userInput);
         std::string word;
-        while(std::getline(getLine, word, ' '))
+        while(std::getline(inputLine, word, ' '))
         {
             splitInputLine.push_back(word);
         }  
