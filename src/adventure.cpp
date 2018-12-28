@@ -31,7 +31,7 @@ int main(int argc, char *argv[])
     //Simply testing the functionality of the rooms and moving a "player" from room to room.
     Room room1("This is a new room", "Blerg");
     Room room2("This is another room", "Bleerg");
-    Room room3("This is a third room", "Bleeerg");f
+    Room room3("This is a third room", "Bleeerg");
 
     room1.addEdge(NORTH, &room2, true);
     room1.addEdge(SOUTH, &room3, true);
