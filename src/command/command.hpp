@@ -19,7 +19,8 @@
 
 #include <iostream>
 #include <string>
-
+#include <sstream>
+#include <set>
 
 
 struct Command
@@ -36,19 +37,56 @@ struct Command
 };
 
 
-class CommandParser
+
+class LegalCommands
 {
 public:
-    Command getCommand()
+    LegalCommands(std::set<std::string> legalCommands_)
+        :legalCommands(legalCommands_)
     {
         
     }
     
-    
+    bool isLegal(std::string commandWord)
+    {
+        if(legalCommands.find(commandWord))
+        {
+            return true;
+        }
+        
+        return false;
+    }
 
 private:
-    std::vector<std::string> legalCommands;
-    
+    std::set<std::string> legalCommands;
 
+};
+
+class CommandParser
+{
+public:
+    CommandParser()
+    {
+        
+    }
+    
+    void getInput(std::string userInput)
+    {
+        inputLine.str(userInput);
+        std::string word;
+        while(std::getline(getLine, word, ' '))
+        {
+            splitInputLine.push_back(word);
+        }  
+    }
+
+    Command getCommand()
+    {
+        
+    }
+
+private:
+    std::istringstream inputLine;
+    std::vector<std::string> splitInputLine;
 };
 
