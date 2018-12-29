@@ -16,9 +16,8 @@
 */ 
 
 #include <iostream>
-#include <string>
 
-#include "command/command.hpp"
+#include "game.hpp"
 
 using namespace std;
 
@@ -26,26 +25,7 @@ int main(int argc, char *argv[])
 {
     cout << "Adventure Engine is free software licensed under the GNU general public license version    3.\n";
 
-    CommandParser commandSystemParser;
-
-    Command outputCommand;
-
-    string userInput;
-    cout << "Please input a command -> ";
-    getline(cin, userInput);
-
-    commandSystemParser.parseInput(userInput);
-    outputCommand = commandSystemParser.makeCommand();
-
-    cout << outputCommand.name << "\n";
-    int argCount = outputCommand.arguments.size();
-
-    for(int i = 0; i < argCount; ++i)
-    {   
-        cout << outputCommand.arguments[i] << ' ';
-    }
-
-    cout << '\n';
+    
     
 }
 
