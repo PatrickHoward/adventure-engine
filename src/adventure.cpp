@@ -18,34 +18,34 @@
 #include <iostream>
 #include <string>
 
-#include "rooms/rooms.hpp"
-#include "player/player.hpp"
+#include "command/command.hpp"
 
 using namespace std;
 
 int main(int argc, char *argv[])
 {
     cout << "Adventure Engine is free software licensed under the GNU general public license version    3.\n";
+
+    CommandParser commandSystemParser;
+
+    Command outputCommand;
+
+    string userInput;
+    cout << "Please input a command -> ";
+    getline(cin, userInput);
+
+    commandSystemParser.parseInput(userInput);
+    outputCommand = commandSystemParser.makeCommand();
+
+    cout << outputCommand.name << "\n";
+    int argCount = outputCommand.arguments.size();
+
+    for(int i = 0; i < argCount; ++i)
+    {   
+        cout << outputCommand.arguments[i] << ' ';
+    }
+
+    cout << '\n';
     
-    
-    //Simply testing the functionality of the rooms and moving a "player" from room to room.
-    Room room1("This is a new room", "Blerg");
-    Room room2("This is another room", "Bleerg");
-    Room room3("This is a third room", "Bleeerg");
-
-    room1.addEdge(NORTH, &room2, true);
-    room1.addEdge(SOUTH, &room3, true);
-
-    room2.addEdge(NORTH, &room3, false);
-
-    room3.addEdge(SOUTH, &room2, true);
-
-    Player mainPlayer(&room1);
-
-    cout << mainPlayer.whereAmI() << '\n';
-    cout << mainPlayer.attemptTravel(SOUTH) << '\n';
-    cout << mainPlayer.attemptTravel(SOUTH) << '\n';
-    cout << mainPlayer.attemptTravel(NORTH) << '\n';
-
 }
 
