@@ -31,5 +31,6 @@
 *.out
 *.app
 
-# Build directories
+# Build & Prototype directories
 build
+prototypes
