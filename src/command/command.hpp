@@ -17,12 +17,11 @@
 
 #pragma once
 
-#include <iostream>
 #include <string>
-#include <sstream>
-#include <set>
+#include <iostream>
 #include <vector>
 
+using argumentList = std::vector<std::string>;
 
 struct Command
 {
@@ -32,37 +31,24 @@ struct Command
         
     }
     
-    std::string name;
-    bool valid;
-    std::vector<std::string> arguments;
-};
-
-
-
-class LegalCommands
-{
-public:
-    LegalCommands(std::set<std::string> legalCommands_)
-        :legalCommands(legalCommands_)
+    Command(std::string name_)
+        : name(name_)
     {
         
     }
     
-    bool isLegal(std::string commandWord)
+    Command(std::string name_, argumentList arguments_)
+        : name(name_),
+        arguments(arguments_),
+        valid(false)
     {
-        auto commandFound = legalCommands.find(commandWord);
-
-        if(commandFound != legalCommands.end())
-        {
-            return true;
-        }
         
-        return false;
     }
-
-private:
-    std::set<std::string> legalCommands;
-
+    
+    std::string name;
+    argumentList arguments;
+    
+    bool valid;
 };
 
 class CommandParser
@@ -71,27 +57,39 @@ public:
     CommandParser()
     {
         
-    }
-    
-    void parseInput(std::string userInput)
-    {
-        inputLine.str(userInput);
-        std::string word;
-        while(std::getline(inputLine, word, ' '))
-        {
-            splitInputLine.push_back(word);
-        }  
-    }
-
-    Command getCommand()
-    {
         
     }
-
+    
+    Command makeCommand(std::string inputLine)
+    {
+        Command newCommand;
+        
+        std::size_t spaceCharPos = inputLine.find(' ');
+        
+        newCommand.name = inputLine.substr(0, spaceCharPos);
+        inputLine.erase(0, spaceCharPos + 1);
+        
+        while(!inputLine.empty())
+        {
+            spaceCharPos = inputLine.find(' ');
+            
+            if(spaceCharPos != std::string::npos)
+            {
+                newCommand.arguments.push_back(inputLine.substr(0, spaceCharPos));
+                inputLine.erase(0, spaceCharPos + 1);   
+            }
+            else
+            {
+                newCommand.arguments.push_back(inputLine.substr(0, inputLine.length()));
+                inputLine.erase(0, inputLine.length());
+            }
+            
+            
+        }
+        
+        return newCommand;
+    }
+    
 private:
-    std::istringstream inputLine;
-    std::vector<std::string> splitInputLine;
+    
 };
-
-
-

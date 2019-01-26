@@ -3,7 +3,9 @@ project(adventure-engine)
 
 set(CMAKE_CXX_FLAGS "-g -Wall")
 
-add_executable(adventure
+add_executable( adventure
+
                 src/adventure.cpp
                 src/rooms/rooms.cpp
+                src/command/command.cpp
               )

@@ -15,26 +15,8 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 */ 
 
-#include <iostream>
+#include <string>
+#include <vector>
 
-#include "command/command.hpp"
-
-using namespace std;
-
-int main(int argc, char *argv[])
-{
-    cout << "Adventure Engine is free software licensed under the GNU general public license version 3.\n";
-
-    CommandParser systemParser;
-    Command goNorthCommand = systemParser.makeCommand("Go north and");
-    
-    cout << "Command name: " << goNorthCommand.name << '\n';
-    cout << "Args: ";
-    for(int i = 0; i < (int)goNorthCommand.arguments.size(); ++i)
-    {
-        cout << goNorthCommand.arguments[i];
-    }
-    
-    cout << '\n';
-}
+#include "command.hpp"
 
