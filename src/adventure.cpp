@@ -17,7 +17,9 @@
 
 #include <iostream>
 
-#include "command/command.hpp"
+#include "game.hpp"
+#include "rooms/rooms.hpp"
+#include "player/player.hpp"
 
 using namespace std;
 
@@ -25,16 +27,33 @@ int main(int argc, char *argv[])
 {
     cout << "Adventure Engine is free software licensed under the GNU general public license version 3.\n";
 
-    CommandParser systemParser;
-    Command goNorthCommand = systemParser.makeCommand("Go north and");
-    
-    cout << "Command name: " << goNorthCommand.name << '\n';
-    cout << "Args: ";
-    for(int i = 0; i < (int)goNorthCommand.arguments.size(); ++i)
-    {
-        cout << goNorthCommand.arguments[i];
-    }
-    
-    cout << '\n';
+    cout << "-- The Dungeon --\n";
+    GameContext setup;
+
+    Room roomA("The first room", "This is the first room.");
+    Room roomB("The second room", "This is the second room, the first room is south\n and the third room is north.");
+    Room roomC("The third room", "This is the third room, you can only go south to \nthe second room.");
+
+    std::vector<Room> dungeon;
+    dungeon.push_back(roomA);
+    dungeon.push_back(roomB);
+    dungeon.push_back(roomC);
+
+    dungeon[0].addEdge(NORTH, &dungeon[1], true);
+    dungeon[1].addEdge(SOUTH, &dungeon[0], true);
+    dungeon[1].addEdge(NORTH, &dungeon[2], true);
+    dungeon[2].addEdge(SOUTH, &dungeon[1], true);
+
+    Player newPlayer(&dungeon[0]);
+
+    vector<string> validCommands = {"go"};
+
+    setup.dungeon = dungeon;
+    setup.mainPlayer = newPlayer;
+    setup.validCommands = validCommands;
+
+    Game activeGame(setup);
+    activeGame.playGame();
+
 }
 

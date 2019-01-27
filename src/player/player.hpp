@@ -24,6 +24,11 @@
 class Player
 {
 public:
+    Player()
+    {
+        playerRoom = nullptr;
+    }
+
     Player(Room* startingRoom)
         : playerRoom(startingRoom)
     {

@@ -20,8 +20,10 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <algorithm>
 
-using argumentList = std::vector<std::string>;
+using ArgumentList = std::vector<std::string>;
 
 struct Command
 {
@@ -31,13 +33,13 @@ struct Command
         
     }
     
-    Command(std::string name_)
+    Command(std::string& name_)
         : name(name_)
     {
         
     }
     
-    Command(std::string name_, argumentList arguments_)
+    Command(std::string& name_, ArgumentList& arguments_)
         : name(name_),
         arguments(arguments_),
         valid(false)
@@ -46,7 +48,7 @@ struct Command
     }
     
     std::string name;
-    argumentList arguments;
+    ArgumentList arguments;
     
     bool valid;
 };
@@ -54,42 +56,37 @@ struct Command
 class CommandParser
 {
 public:
-    CommandParser()
+    CommandParser(std::vector<std::string> validCommands_)
+        : validCommands(validCommands_)
     {
         
-        
     }
-    
-    Command makeCommand(std::string inputLine)
-    {
-        Command newCommand;
-        
-        std::size_t spaceCharPos = inputLine.find(' ');
-        
-        newCommand.name = inputLine.substr(0, spaceCharPos);
-        inputLine.erase(0, spaceCharPos + 1);
-        
-        while(!inputLine.empty())
-        {
-            spaceCharPos = inputLine.find(' ');
-            
-            if(spaceCharPos != std::string::npos)
-            {
-                newCommand.arguments.push_back(inputLine.substr(0, spaceCharPos));
-                inputLine.erase(0, spaceCharPos + 1);   
-            }
-            else
-            {
-                newCommand.arguments.push_back(inputLine.substr(0, inputLine.length()));
-                inputLine.erase(0, inputLine.length());
-            }
-            
-            
-        }
-        
-        return newCommand;
-    }
-    
+
+    Command parse(std::string inputLine);
+
 private:
-    
+    Command makeCommand(std::string inputLine);
+
+    void validateCommand(Command checkThis);
+
+    const std::vector<std::string> validCommands;
+};
+
+class CommandRunner
+{
+public:
+    CommandRunner(std::vector<std::string> validCommands)
+        : parser(validCommands)
+    {
+
+    }
+
+    void processInput(std::string& inputLine);
+
+    Command returnActiveCommand();
+
+private:
+
+    CommandParser parser;
+    Command activeCommand;
 };
