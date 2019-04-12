@@ -27,7 +27,8 @@ enum ActionTokens
     look,
     where,
     take,
-    use
+    use,
+    quit
 };
 
 class ActionManager
@@ -49,10 +50,14 @@ public:
         user = player_;
     }
 
-    bool processUserAction(Command command);
+    std::string processUserAction(Command command);
 
 private:
-    bool playerTravel(Command& command);
+    std::string playerTravel(Command& command);
+    std::string playerLookAround();
+    std::string playerWhereAmI();
+
+    std::string quitGame();
 
     Player* user;
     

@@ -59,11 +59,8 @@ public:
     }
 
     void addEdge(Direction direction, Room* toRoom, bool enableEdge);
-
     void delEdge(Direction direction);
-
     bool hasEdge(Direction direction) const;
-
     bool edgeEnabled(Direction movement);
 
     Room* getRoom(Direction direction);

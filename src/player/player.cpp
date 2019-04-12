@@ -15,3 +15,25 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 */ 
 
+#include <string>
+
+#include "../rooms/rooms.hpp"
+#include "player.hpp"
+
+std::string Player::attemptTravel(Direction movementTowards)
+{
+    if(playerRoom->hasEdge(movementTowards))
+    {
+        if(playerRoom->edgeEnabled(movementTowards))
+        {
+            movePlayer(playerRoom->getRoom(movementTowards));
+
+            return "OK";
+        }
+
+        return "Its locked.";
+    }
+
+    return "I can't go that way.";
+}
+

@@ -38,7 +38,8 @@ class Game
 {
 public:
     Game(GameContext context)
-        : commandRunner(context.validCommands)
+        : commandRunner(context.validCommands),
+        active(true)
     {
         dungeon = context.dungeon;
         mainPlayer = context.mainPlayer;
@@ -47,34 +48,48 @@ public:
 
     void playGame()
     {
-        bool active = true;
 
         while(active)
         {
-            std::cout << "====== " << mainPlayer.whereAmI() << " ======" << '\n';
-            std::cout << mainPlayer.lookAround() << '\n';
+            if(mainPlayer.getRoom()->visited == false)
+            {
+                std::cout << "====== " << mainPlayer.whereAmI() << " ======" << '\n';
+                std::cout << mainPlayer.lookAround() << '\n';
 
+                mainPlayer.getRoom()->visited = true;
+            }
+            else
+            {
+                std::cout << "====== " << mainPlayer.whereAmI() << " ======" << '\n';
+
+            }
+        
             std::string input;
             std::cout << "> ";
             std::getline(std::cin, input);
 
             commandRunner.processInput(input);
-            bool eventSuccess = actionManager.processUserAction(commandRunner.returnActiveCommand());
+            std::string eventOutput;
+            eventOutput = actionManager.processUserAction(commandRunner.returnActiveCommand());
 
-            if(!eventSuccess)
-            {
-                std::cout << "Not sure how to " << commandRunner.returnActiveCommand().name << "!\n";
-            }
-
+            std::cout << eventOutput << "\n";            
             std::cout << '\n';
+
+            if(commandRunner.returnActiveCommand().name == "quit")
+            {
+                active = false;
+            }
         }
     }
 
     
 private:
+
     ActionManager actionManager;
     CommandRunner commandRunner;
     std::vector<Room> dungeon;
     Player mainPlayer;
+    
+    bool active;
 };
 

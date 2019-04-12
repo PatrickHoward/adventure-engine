@@ -14,43 +14,87 @@
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <https://www.gnu.org/licenses/>. 
 */ 
+#include <string>
 
 #include "actions.hpp"
 
-bool ActionManager::processUserAction(Command command)
+using namespace std;
+
+string ActionManager::processUserAction(Command command)
 {
-    bool commandSucceeded = false;
+    string output;
 
     if(command.name == "go")
     {
-        commandSucceeded = playerTravel(command);
+        output = playerTravel(command);
+    }
+      else if(command.name == "look")
+    {
+        output = playerLookAround();
+    }
+    else if(command.name == "where")
+    {
+        output = playerWhereAmI();
+    }
+    else if(command.name == "quit")
+    {
+        output = quitGame();
     }
 
-    return commandSucceeded;
+    return output;
 }
 
-bool ActionManager::playerTravel(Command& command)
+string ActionManager::playerTravel(Command& command)
 {
     if(command.arguments[0] == "north")
     {
-        user->attemptTravel(NORTH);
+        return user->attemptTravel(NORTH);
     }
     else if(command.arguments[0] == "south")
     {
-        user->attemptTravel(SOUTH);
+        return user->attemptTravel(SOUTH);
     }
     else if(command.arguments[0] == "east")
     {
-        user->attemptTravel(EAST);
+        return user->attemptTravel(EAST);
     }
     else if(command.arguments[0] == "west")
     {
-        user->attemptTravel(WEST);
+        return user->attemptTravel(WEST);
+    }
+    else if(command.arguments[0] == "northwest")
+    {
+        return user->attemptTravel(NORTHWEST);
+    }
+    else if(command.arguments[0] == "northeast")
+    {
+        return user->attemptTravel(NORTHEAST);
+    }
+    else if(command.arguments[0] == "southwest")
+    {
+        return user->attemptTravel(SOUTHWEST);
+    }
+    else if(command.arguments[0] == "southeast")
+    {
+        return user->attemptTravel(SOUTHEAST);
     }
     else
     {
-        return false; //No conition was satisfied, therefore, the command is invalid.
+        return "I don't know how to go" + command.arguments[0];
     }
+}
 
-    return true;
+string ActionManager::playerLookAround()
+{
+    return user->lookAround();
+}
+
+string ActionManager::playerWhereAmI()
+{
+    return user->whereAmI();
+}
+
+string ActionManager::quitGame()
+{
+    return "Goodbye!";
 }

@@ -63,4 +63,6 @@ Room* Room::getRoom(Direction direction)
         return edges[direction].destination;
     }
 
+    return nullptr;
+
 }

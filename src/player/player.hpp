@@ -35,24 +35,8 @@ public:
 
     }
 
-    std::string attemptTravel(Direction movementTowards)
-    {
-        if(playerRoom->hasEdge(movementTowards))
-        {
-            if(playerRoom->edgeEnabled(movementTowards))
-            {
-                movePlayer(playerRoom->getRoom(movementTowards));
-                return "OK";
-            }
-
-            return "Its locked.";
-
-        }
-
-        return "I can't go that way.";
-
-    }
-
+    std::string attemptTravel(Direction movementTowards);
+    
     std::string whereAmI()
     {
         return playerRoom->roomName;
@@ -61,6 +45,11 @@ public:
     std::string lookAround()
     {
         return playerRoom->roomDesc;
+    }
+
+    Room* getRoom()
+    {
+        return playerRoom;
     }
 
 private:
